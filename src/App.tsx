@@ -6,9 +6,12 @@ import SettingsCounter from "./settingsCounter/settingsCounter";
 import SettingsClicker from "./settingsCounter/settingsClicker";
 
 function App() {
-    let [count, setCount] = useState<number>(0)
-    let [maxValue, setMaxValue] = useState<number>(5)
-    let [minValue, setMinValue] = useState<number>(0)
+    const max = localStorage.getItem('max')
+    const min = localStorage.getItem('min')
+
+    let [count, setCount] = useState<number>(Number(min))
+    let [maxValue, setMaxValue] = useState<number>(Number(max) || 5)
+    let [minValue, setMinValue] = useState<number>(Number(min) || 0)
     let [settings, setSettings] = useState<boolean>(true)
     const setMax = (value: number) => {
         setMaxValue(value)
@@ -17,6 +20,11 @@ function App() {
         setMinValue(value)
     }
     const setValue = () => {
+        localStorage.setItem('max', maxValue.toString())
+        setMaxValue(Number(localStorage.getItem('max')))
+
+        localStorage.setItem('min', minValue.toString())
+        setMinValue(Number(localStorage.getItem('min')))
         setSettings(!settings)
         setCount(minValue)
     }
