@@ -1,51 +1,57 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './App.css';
 import Counter from "./counter";
 import Clicker from "./clicker";
 import SettingsCounter from "./settingsCounter/settingsCounter";
 import SettingsClicker from "./settingsCounter/settingsClicker";
+import {
+    resetAC,
+    setCountAC,
+    setMaxAC,
+    setMinAC,
+    setSettingsAC, TypeStateReducer,
+} from "./Store/counterReducer";
+import {useDispatch, useSelector} from "react-redux";
+import {TypeStoreRedux} from "./Store/store";
 
 function App() {
-    const max = localStorage.getItem('max')
-    const min = localStorage.getItem('min')
 
-    let [count, setCount] = useState<number>(Number(min))
-    let [maxValue, setMaxValue] = useState<number>(Number(max) || 5)
-    let [minValue, setMinValue] = useState<number>(Number(min) || 0)
-    let [settings, setSettings] = useState<boolean>(true)
+const state = useSelector<TypeStoreRedux,TypeStateReducer>(state => state.counter)
+const dispatch = useDispatch()
+
     const setMax = (value: number) => {
-        setMaxValue(value)
+        dispatch(setMaxAC(value))
     }
     const setMin = (value: number) => {
-        setMinValue(value)
+        dispatch(setMinAC(value))
     }
     const setValue = () => {
-        localStorage.setItem('max', maxValue.toString())
-        setMaxValue(Number(localStorage.getItem('max')))
+        localStorage.setItem('max', state.max.toString())
+        dispatch(setMaxAC(Number(localStorage.getItem('max'))))
 
-        localStorage.setItem('min', minValue.toString())
-        setMinValue(Number(localStorage.getItem('min')))
-        setSettings(!settings)
-        setCount(minValue)
+        localStorage.setItem('min', state.min.toString())
+        dispatch(setMinAC(Number(localStorage.getItem('min'))))
+        dispatch(setSettingsAC())
+
     }
     const inc = () => {
-        setCount(count + 1)
+        dispatch(setCountAC())
     }
     const reset = () => {
-
-        setCount(minValue)
+        dispatch(resetAC())
     }
     const set = () => {
-        setSettings(!settings)
+        dispatch(setSettingsAC())
     }
     return (<div className='Main'>
-            <Counter counter={count} maxValue={maxValue} settings={settings}/>
-            <Clicker increase={inc} reset={reset} count={count}
-                     maxValue={maxValue} minValue={minValue} set={set} settings={settings}/>
-            <SettingsCounter maxValue={maxValue} setMax={setMax}
-                             setMin={setMin} minValue={minValue} settings={settings}/>
-            <SettingsClicker maxValue={maxValue} minValue={minValue}
-                             setValue={setValue} settings={settings}/>
+        <Counter counter={state.count} maxValue={state.max} settings={state.settings}/>
+        <Clicker increase={inc} reset={reset} count={state.count}
+                 maxValue={state.max} minValue={state.min} set={set} settings={state.settings}/>
+        <SettingsCounter maxValue={state.max} setMax={setMax}
+                         setMin={setMin} minValue={state.min} settings={state.settings}/>
+        <SettingsClicker maxValue={state.max} minValue={state.min}
+                         setValue={setValue}
+                         settings={state.settings}/>
         </div>
 
 
