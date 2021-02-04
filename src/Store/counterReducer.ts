@@ -109,7 +109,6 @@ export const setLocalStorageTC = ():ThunkAction<void, TypeStoreRedux, unknown,
     dispatch(setMinAC(Number(localStorage.getItem('min'))))
     dispatch(setSettingsAC())
 }
-
 export const getLocalStorageTC = ():ThunkAction<void, TypeStoreRedux, unknown,
     Actions>=>(dispatch)=>{
     let maxValue = localStorage.getItem('max')
