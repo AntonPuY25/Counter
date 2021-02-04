@@ -9265,6 +9265,11 @@ redent@^3.0.0:
     indent-string "^4.0.0"
     strip-indent "^3.0.0"
 
+redux-thunk@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/redux-thunk/-/redux-thunk-2.3.0.tgz#51c2c19a185ed5187aaa9a2d08b666d0d6467622"
+  integrity sha512-km6dclyFnmcvxhAcrQV2AkZmPQjzPDjgVlQtR0EQjxZPyJ0BnMf3in1ryuR8A2qU0HldVRfxYXbFSKlI3N7Slw==
+
 redux-ts@^4.3.0:
   version "4.3.0"
   resolved "https://registry.yarnpkg.com/redux-ts/-/redux-ts-4.3.0.tgz#5de066758f1dcde43d9e846c56bdc21d02bb5bb4"
@@ -10803,6 +10808,11 @@ typedarray@^0.0.6:
   version "0.0.6"
   resolved "https://registry.yarnpkg.com/typedarray/-/typedarray-0.0.6.tgz#867ac74e3864187b1d3d47d996a78ec5c8830777"
   integrity sha1-hnrHTjhkGHsdPUfZlqeOxciDB3c=
+
+typescript-fsa-redux-thunk@^2.10.1:
+  version "2.10.1"
+  resolved "https://registry.yarnpkg.com/typescript-fsa-redux-thunk/-/typescript-fsa-redux-thunk-2.10.1.tgz#e626836746d2af045d8ac28117c6d1208c3314be"
+  integrity sha512-VrIPIWCn7vNwTBB3+Svv5hfocTpm+cQ9dBmiBDWGqvScCOrNm7G+Nh3inf1HD1CmK4pIL9Eyioirztfi+BWwiQ==
 
 typescript@^4.0.3:
   version "4.1.3"

@@ -1,3 +1,6 @@
+import {ThunkAction} from "redux-thunk";
+import {TypeStoreRedux} from "./store";
+
 export type TypeStateReducer = {
     min: number
     max: number
@@ -92,4 +95,29 @@ export const resetAC = () => {
     return {
         type: "RESET"
     } as const
+}
+
+export const setLocalStorageTC = ():ThunkAction<void, TypeStoreRedux, unknown,
+    Actions>=>
+    (dispatch,
+     getState)=>{
+    let currentValueMax = getState().counter.max
+    localStorage.setItem('max', JSON.stringify(currentValueMax))
+    dispatch(setMaxAC(Number(localStorage.getItem('max'))))
+    let currentValueMin = getState().counter.min
+    localStorage.setItem('min', JSON.stringify(currentValueMin))
+    dispatch(setMinAC(Number(localStorage.getItem('min'))))
+    dispatch(setSettingsAC())
+}
+
+export const getLocalStorageTC = ():ThunkAction<void, TypeStoreRedux, unknown,
+    Actions>=>(dispatch)=>{
+    let maxValue = localStorage.getItem('max')
+    let minValue = localStorage.getItem('min')
+    if(minValue&&maxValue){
+        dispatch(setMaxAC (JSON.parse(maxValue)))
+        dispatch(setMinAC(JSON.parse(minValue)))
+    }
+
+
 }

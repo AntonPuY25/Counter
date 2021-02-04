@@ -1,12 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import './App.css';
 import Counter from "./counter";
 import Clicker from "./clicker";
 import SettingsCounter from "./settingsCounter/settingsCounter";
 import SettingsClicker from "./settingsCounter/settingsClicker";
 import {
+    getLocalStorageTC,
     resetAC,
-    setCountAC,
+    setCountAC, setLocalStorageTC,
     setMaxAC,
     setMinAC,
     setSettingsAC, TypeStateReducer,
@@ -19,6 +20,11 @@ function App() {
 const state = useSelector<TypeStoreRedux,TypeStateReducer>(state => state.counter)
 const dispatch = useDispatch()
 
+
+    useEffect(()=>{
+        dispatch(getLocalStorageTC())
+    },[])
+
     const setMax = (value: number) => {
         dispatch(setMaxAC(value))
     }
@@ -26,12 +32,7 @@ const dispatch = useDispatch()
         dispatch(setMinAC(value))
     }
     const setValue = () => {
-        localStorage.setItem('max', state.max.toString())
-        dispatch(setMaxAC(Number(localStorage.getItem('max'))))
-
-        localStorage.setItem('min', state.min.toString())
-        dispatch(setMinAC(Number(localStorage.getItem('min'))))
-        dispatch(setSettingsAC())
+        dispatch(setLocalStorageTC())
 
     }
     const inc = () => {
