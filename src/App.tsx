@@ -10,14 +10,14 @@ import {
     setCountAC, setLocalStorageTC,
     setMaxAC,
     setMinAC,
-    setSettingsAC, TypeStateReducer,
+    setSettingsAC,
 } from "./Store/counterReducer";
 import {useDispatch, useSelector} from "react-redux";
-import {TypeStoreRedux} from "./Store/store";
+import {AllSelectors} from "./Store/Selectors/selectors";
 
 function App() {
 
-const state = useSelector<TypeStoreRedux,TypeStateReducer>(state => state.counter)
+    const {count,max,min,settings} = useSelector(AllSelectors)
 const dispatch = useDispatch()
 
 
@@ -45,14 +45,14 @@ const dispatch = useDispatch()
         dispatch(setSettingsAC())
     }
     return (<div className='Main'>
-        <Counter counter={state.count} maxValue={state.max} settings={state.settings}/>
-        <Clicker increase={inc} reset={reset} count={state.count}
-                 maxValue={state.max} minValue={state.min} set={set} settings={state.settings}/>
-        <SettingsCounter maxValue={state.max} setMax={setMax}
-                         setMin={setMin} minValue={state.min} settings={state.settings}/>
-        <SettingsClicker maxValue={state.max} minValue={state.min}
+        <Counter counter={count} maxValue={max} settings={settings}/>
+        <Clicker increase={inc} reset={reset} count={count}
+                 maxValue={max} minValue={min} set={set} settings={settings}/>
+        <SettingsCounter maxValue={max} setMax={setMax}
+                         setMin={setMin} minValue={min} settings={settings}/>
+        <SettingsClicker maxValue={max} minValue={min}
                          setValue={setValue}
-                         settings={state.settings}/>
+                         settings={settings}/>
         </div>
 
 
